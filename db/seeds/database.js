@@ -1,19 +1,12 @@
 exports.seed = function(knex, Promise) {
   return Promise.all([
-    knex('creators').insert({id: 1, name: 'Alice'}),
-    knex('creators').insert({id: 2, name: 'Bob'}),
-    knex('creators').insert({id: 3, name: 'Charlie'}),
-    knex('polls').insert({id: 1, name: 'Alice'}),
-    knex('polls').insert({id: 2, name: 'Bob'}),
-    knex('polls').insert({id: 3, name: 'Charlie'}),
-    knex('choices').insert({id: 1, name: 'Alice'}),
-    knex('choices').insert({id: 2, name: 'Bob'}),
-    knex('choices').insert({id: 3, name: 'Charlie'})
-    knex('participants').insert({id: 1, name: 'Alice'}),
-    knex('participants').insert({id: 2, name: 'Bob'}),
-    knex('participants').insert({id: 3, name: 'Charlie'}),
-    knex('rankings').insert({id: 1, name: 'Alice'}),
-    knex('rankings').insert({id: 2, name: 'Bob'}),
-    knex('rankings').insert({id: 3, name: 'Charlie'})
+    knex('creators').insert({id: 1, name: 'Alice', email: 'alice@gmail.com'}),
+    knex('polls').insert({id: 1, title: 'Food', description: 'Which resturant should we go to?', admin_digest:10, participant_digest:20, creator_id:1}),
+    knex('choices').insert({id: 1, title: 'Sushi', description: 'Because sushi', poll_id: 1}),
+    knex('choices').insert({id: 2, title: 'Taco', description: 'Because taco', poll_id: 1}),
+    knex('participants').insert({id: 1, name: 'KV', email: 'kv@gmail.com', poll_id: 1}),
+    knex('participants').insert({id: 2, name: 'Raf', email: 'raf@gmail.com', poll_id: 1}),
+    knex('rankings').insert({ranking: 2, participant_id: 1, choice_id:1}),
+    knex('rankings').insert({ranking: 3, participant_id: 2, choice_id:2}),
   ]);
 };
