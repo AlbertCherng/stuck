@@ -49,7 +49,7 @@ app.get('/a/:admin_digest', (req, res) => {
     }
   });
 
-})
+});
 
 app.post("/polls", (req, res) => {
   // create a poll
@@ -69,7 +69,7 @@ app.get("/polls/:id/edit", (req, res) => {
 
 });
 
-app.put("/polls/:id" (req, res) => {
+app.put("/polls/:id", (req, res) => {
   // save updates
   knex('polls').insert({id: req.params.id});
 });
@@ -87,15 +87,16 @@ app.get("/p/:participant_digest", (req, res) => {
   // create a participant // set a cookie
     knex('polls').where({participant_digest: req.params.participant_digest})
     .select('participant_id, id').then(function(results) {
-    if(results.length == 0){
-      throw error;
-    } else {
-      const participant_id = results[0].participant_id;
-      const id = results[0].id;
-      req.cookies("participant_id", participant_id);
-      res.redirect(`/rank/${participant_id}`);
-    }
+      if(results.length == 0) {
+        throw error;
+      } else {
+        const participant_id = results[0].participant_id;
+        const id = results[0].id;
+        req.cookies("participant_id", participant_id);
+        res.redirect(`/rank/${participant_id}`);
+      }
 
+  });
 });
 
 app.get("/rank/:participant_id", (req, res) => {
