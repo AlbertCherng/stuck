@@ -1,32 +1,99 @@
 <% include ./partials/_header %>
-<section id="poll">
-<form id="pollForm">
-<input type="text" name="title" placeholder="Enter title">
-<br>
-<textarea name="description" placeholder="Enter description"></textarea>
+
+<form>
+  <div class="form-group">
+    <label for="pollTitle">Title</label>
+    <input type="text" class="form-control" id="pollTitle" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="pollDescription">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="pollChoice1">Choice 1</label>
+    <input type="text" class="form-control" id="pollChoice1" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="choice1Description">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="pollChoice2">Choice 2</label>
+    <input type="text" class="form-control" id="pollChoice2" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="choice2Description">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+  <div class="form-group">
+    <label for="pollChoice3">Choice 3</label>
+    <input type="text" class="form-control" id="pollChoice3" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="choice3Description">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+  <div class="form-group">
+    <label for="pollChoice4">Choice 4</label>
+    <input type="text" class="form-control" id="pollChoice4" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="choice4Description">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+  <div class="form-group">
+    <label for="pollChoice5">Choice 5</label>
+    <input type="text" class="form-control" id="pollChoice5" placeholder="What are you trying to describe?">
+  </div>
+  <div class="form-group">
+    <label for="choice5Description">Describe it.</label>
+    <textarea class="form-control" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
 </form>
-<div>
-<form id="choiceForm">
-<input type="text" name="choice1" placeholder="Choice 1">
-<textarea name="description" placeholder="Enter a description for this choice."></textarea>
-<br>
-<input type="text" name="choice1" placeholder="Choice 2">
-<textarea name="description" placeholder="Enter a description for this choice."></textarea>
-<br>
-<input type="text" name="choice1" placeholder="Choice 2">
-<textarea name="description" placeholder="Enter a description for this choice."></textarea>
-<br>
-<input type="text" name="choice1" placeholder="Choice 3">
-<textarea name="description" placeholder="Enter a description for this choice."></textarea>
-</form>
-</div>
+
 
 <i class="fa fa-plus" aria-hidden="true"></i>
-</section>
+
 <section id="participants">
   <h2>Enter Participants:</h2>
-  <i class="fa fa-plus" aria-hidden="true"></i>
-</section>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+  <form class="form-inline" id="participantForm1">
+  <div class="form-group">
+    <label for="email">Your email, please.</label>
+    <input type="email" name="participant1" class="form-control" id="email" placeholder="Email">
+  </div>
+  </form>
+  <form class="form-inline" id="participantForm2">
+  <div class="form-group">
+    <label for="email">Your email, please.</label>
+    <input type="email" name="participant2" class="form-control" id="email" placeholder="Email">
+  </div>
+  </form>
+  <form class="form-inline" id="participantForm3">
+  <div class="form-group">
+    <label for="email">Your email, please.</label>
+    <input type="email" name="participant3" class="form-control" id="email" placeholder="Email">
+  </div>
+  </form>
+  <form class="form-inline" id="participantForm4">
+  <div class="form-group">
+    <label for="email">Your email, please.</label>
+    <input type="email" name="participant4" class="form-control" id="email" placeholder="Email">
+  </div>
+  </form>
+  <form class="form-inline" id="participantForm5">
+  <div class="form-group">
+    <label for="email">Your email, please.</label>
+    <input type="email" name="participant5" class="form-control" id="email" placeholder="Email">
+  </div>
+  </form>
+  </div>
+  </div>
+
 
 
 <% include ./partials/_footer %>

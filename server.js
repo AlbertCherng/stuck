@@ -1,5 +1,3 @@
-"use strict";
-
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 8080;
@@ -9,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+//const bootstrap   = require('bootstrap');
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);

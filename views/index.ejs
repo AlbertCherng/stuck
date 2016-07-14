@@ -1,9 +1,16 @@
 <% include ./partials/_head %>
-<h1>Stuck</h1>
-<form id="enterEmail" action="/polls" method="POST">
-    <input id="email" type="text" name="email" style="width: 300px">
-    <input type="submit" value="Get unstuck">
-</form>
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-5">
+    <h1>Stuck</h1>
+    <form id="enterEmail" action="/polls" method="POST" class="form-inline">
+      <div class="form-group">
+        <label for="email">Your email, please.</label>
+        <input type="email" class="form-control" id="email" placeholder="Email">
+      </div>
+    </form>
+  </div>
+</div>
 
 <% include ./partials/_footer %>
 
