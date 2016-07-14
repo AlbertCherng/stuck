@@ -1,14 +1,5 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
-
+const knexConfig  = require("./knexfile");
+const knex        = require("knex")(knexConfig[ENV]);
 
 function loadPoll() {
   $.ajax({
@@ -19,19 +10,6 @@ function loadPoll() {
     }
   });
 }
-
-
-function loadChoices() {
-  $.ajax({
-    type: "GET",
-    url: "http://localhost:8080/tweets",
-    success: function(data) {
-      renderChoices(data)
-    }
-  });
-}
-
-
 
 function renderPoll(tweets) {
   var $tweets = $('.posted-tweets').empty();
@@ -47,44 +25,45 @@ function renderChoices(tweets) {
   };
 }
 
-function createTweetElement(tweet) {
-  var html = `<article>
-                <header class="tweet-header">
-                  <img src="${tweet.user.avatars.small}" class="user-image">
-                  <p class="user-name">${tweet.user.name}</p>
-                  <p class="user-handle">${tweet.user.handle}</p>
-                </header>
-                <section class="tweet-body">
-                  ${tweet.content.text}
-                </section>
-                <footer class="tweet-footer">
-                  <p class="post-date"> ${tweet.created_at} </p>
-                  <span class="icons" id="iconspan">
-                    <i class="fa fa-font-awesome" aria-hidden="true"></i>
-                    <i class="fa fa-retweet" aria-hidden="true"></i>
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                  </span>
-                </footer>
-              </article>`
-  return $(html);
-}
-
 $(function() {
-  $("#tweetForm").submit(function(event) {
-    event.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "/tweets/",
-      data: $(this).serialize(),
-      success: function(res) {
-        console.log(res);
-        $("#tweetForm")[0].reset();
-        $(".counter").text(140);
-        loadTweets();
-      }
-    });
-  };
+
+$("#enterEmail").submit(function(event){
+  $.ajax({
+    type: "POST",
+    url: "/polls",
   });
-  loadPoll();
-  loadChoices();
 });
+
+$( "#pollTitle" ).keyup(function(title) {
+  knex("polls").where("id", 12)
+  .update({name: title})
+  console.log("Keyup working!");
+});
+
+$( "#pollDescription" ).keyup(function(title) {
+  knex("polls").where("id", 12)
+  .update({name: title})
+  console.log("Keyup working!");
+});
+
+$( "#choice1" ).keyup(function() {
+  console.log("Keyup working for choice 1!!");
+});
+
+$( "#choice2" ).keyup(function() {
+  console.log("Keyup working for choice 2!!");
+});
+
+$( "#choice3" ).keyup(function() {
+  console.log("Keyup working for choice 3!!");
+});
+
+$( "#choice4" ).keyup(function() {
+  console.log("Keyup working for choice 4!!");
+});
+
+$( "#choice5" ).keyup(function() {
+  console.log("Keyup working for choice 5!!");
+});
+
+})
