@@ -51,8 +51,8 @@ app.get('/a/:admin_digest', (req, res) => {
 });
 
 app.post("/polls", (req, res) => {
-  knex('polls').returning('id').insert({}).then(function(results) {
-    console.log(results)
+  knex('polls').insert({}).returning('id').then(function(results) {
+    console.log("Hi creating poll result", results)
     let id = results[0];
     res.redirect(`/polls/${id}/edit`);
   });
@@ -69,7 +69,9 @@ app.get("/polls/:id/edit", (req, res) => {
 
 app.put("/polls/:id", (req, res) => {
   // save updates
-  knex('polls').insert({id: req.params.id});
+  console.log(req.params)
+  // knex('polls').where({id: req.params.id}).update({title: req.body.title});
+  // res.redirect("/polls/:id/edit");
 });
 
 app.get("/polls/:id", (req, res) => {
