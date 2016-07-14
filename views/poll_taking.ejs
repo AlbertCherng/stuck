@@ -1,7 +1,9 @@
 <% include ./partials/_header %>
-<div class=title></div>
-<div class=description></div>
-<h1> Rank your order </h1>
+<div class="jumbotron">
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+  <table class="table">
+<h2> Rank your order </h2>
 <ul id="sortable">
   <li class="choice1">Item 1</li>
   <li class="choice2">Item 2</li>
@@ -10,6 +12,9 @@
   <li class="choice5">Item 5</li>
 </ul>
 
-<button type="submit">Submit your ranking</button>
-
+<button type="button" class="btn btn-success">Submit your ranking</button>
+</table>
+</div>
+</div>
+</div>
 <% include ./partials/_footer %>
