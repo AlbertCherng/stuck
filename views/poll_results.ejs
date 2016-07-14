@@ -1,10 +1,15 @@
 <% include ./partials/_header %>
-
-<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-<i class="fa fa-tachometer" aria-hidden="true"></i>
-<i class="fa fa-cogs" aria-hidden="true"></i>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+<p>
+  <button type="button" class="btn btn-primary btn-lg">Results</button>
+  <button type="button" class="btn btn-success btn-lg">Edit</button>
+  <button type="button" class="btn btn-info btn-lg">Admin Link</button>
+</p>
 <form id="adminLink">
-<input type="text" name="adminlink" placeholder="PLACEHOLDER">
+<input type="text" class="form-control" name="adminlink" placeholder="http://http://localhost:8080/polls/{id}/results">
 </form>
+</div>
+</div>
 
 <% include ./partials/_footer %>
