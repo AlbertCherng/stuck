@@ -84,30 +84,17 @@ app.get("/polls/:id/edit", (req, res) => {
   });
 
 
-
-/*
-   let req_body = {poll: {title: "...",
-         description: "...",
-         choices: [ {title: "...",
-                     description: "..."},
-                    {title: "...",
-                     description: "..."}
-                     ]
-         }}
-
-*/
-
 app.put("/polls/:id", (req, res) => {
-  let poll_id = req.params.id
-  // console.log(req.body[3]);
+  let poll_id = req.params.id;
+  console.log(req.body.poll)
   knex('polls').where({id: poll_id}).update({title: req.body.poll.title,
-                                             description: req.body.poll.description});
-  knex('choices').where({poll_id: poll_id}).delete();
+                                             description: req.body.poll.description}).then();
+  knex('choices').where({poll_id: poll_id}).delete().then();
 
   for(choice of req.body.poll.choices) {
     knex('choices').insert({title: choice.title,
                              description: choice.description,
-                             poll_id: poll_id});
+                             poll_id: poll_id}).then();
   }
   res.json({status: "OK"})
 });

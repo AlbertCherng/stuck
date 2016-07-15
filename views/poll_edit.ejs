@@ -1,21 +1,12 @@
 <% include ./partials/_header %>
-<<<<<<< HEAD
 
-<form id="poll_edit">
-  <input type="hidden" name="poll[id]" value="123">
-  <input type="text" name="poll[title]" value="title">
-  <input type="text" name="poll[choices][0][title]" value="choice1">
-</form>
-
-=======
 <form class="poll">
->>>>>>> 5b56c805f3103ecc0b0b9c6ea48e2f9cd386f351
 <article data-poll-id="<%= poll %>">
 <div class="row">
   <div class="col-md-4 col-md-offset-3">
    <div class="form-group">
     <label for="pollTitle">Title</label>
-    <input type="text" name= "poll[<%= poll.id %>][title]" class="form-control" name="title" id="pollTitle" placeholder="What are you trying to describe?">
+    <input type="text" name= "poll[title]" class="form-control" name="title" id="pollTitle" placeholder="What are you trying to describe?">
 </div>
 </div>
 </div>
@@ -24,7 +15,7 @@
   <div class="col-md-4 col-md-offset-3">
   <div class="form-group">
     <label for="pollDescription">Describe it.</label>
-    <textarea class="form-control" name="description" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
+    <textarea class="form-control" name="poll[description]" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
 </div>
 </div>
 </div>
@@ -33,12 +24,12 @@
 
 <div class="choices">
 <h2>Enter Choices:</h2>
-<% for (choice of choices) { %>
+<% choices.forEach(function(choice, index) { %>
 
   <div class="row">
     <div class="col-md-4 col-md-offset-3">
       <div class="form-group">
-        <input type="text" class="form-control" name="choices[][title]" placeholder="Choice" value="<%= choice.title %>">
+        <input type="text" class="form-control" name="poll[choices][<%= index %>][title]" placeholder="Choice" value="<%= choice.title %>">
       </div>
     </div>
   </div>
@@ -46,12 +37,12 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-3">
     <div class="form-group">
-      <textarea class="form-control" rows="2" name="choices[][description]" placeholder="Uh huh uh huh, makes sense."><%= choice.description %></textarea>
+      <textarea class="form-control" rows="2" name="poll[choices][<%= index %>][description]" placeholder="Uh huh uh huh, makes sense."><%= choice.description %></textarea>
     </div>
   </div>
 </div>
 
-<% } %>
+<% }); %>
 
 </div>
 <div class="row">
@@ -62,18 +53,17 @@
 <div class="participants">
 <h2>Enter Participants:</h2>
 
-<% for (participant of participants) { %>
-
+<% participants.forEach(function(participant, index) { %>
 
 <div class="row">
   <div class="col-md-4 col-md-offset-3">
     <div class="form-group">
-      <input type="email" class="form-control" name="participants[][email]" placeholder="enter email" value="<%= participant.email %>">
+      <input type="email" class="form-control" name="poll[participants][<%= index %>][email]" placeholder="enter email" value="<%= participant.email %>">
     </div>
   </div>
 </div>
 
-<% } %>
+<% }); %>
 </div>
 <div class="row">
     <div class="col-md-4 col-md-offset-3">
