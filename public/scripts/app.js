@@ -52,6 +52,22 @@ $(document).ready(function() {
  $('.addParticipant').click(function(event) {
    createParticipant().appendTo('.participants');
 });
+<<<<<<< HEAD
+=======
+
+$( "#sortable" ).sortable();
+$( "#sortable" ).disableSelection();
+
+$('#takePoll').submit(function(event) {
+
+  $('.ranking').each(function(index, elem) {
+    $(elem).attr("name", `ranking[${index}]`);
+  });
+
+});
+
+
+>>>>>>> results-page
 });
 
 
