@@ -53,6 +53,18 @@ $(document).ready(function() {
    createParticipant().appendTo('.participants');
 });
 
+$( "#sortable" ).sortable();
+$( "#sortable" ).disableSelection();
+
+$('#takePoll').submit(function(event) {
+
+  $('.ranking').each(function(index, elem) {
+    $(elem).attr("name", `ranking[${index}]`);
+  });
+
+});
+
+
 });
 
 
