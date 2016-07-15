@@ -99,12 +99,12 @@ app.put("/polls/:id", (req, res) => {
   res.json({status: "OK"})
 });
 
-app.get("/polls/:id", (req, res) => {
-  res.render("poll_share");
-});
-
 app.get("/polls/:id/results", (req, res) => {
-  res.render("poll_results");
+   knex('polls').where({id: req.params.id})
+    .select('id').then(function(results) {
+      res.render("poll_results", {id: req.params.id});
+
+    });
 });
 
 app.get("/p/:participant_digest", (req, res) => {
