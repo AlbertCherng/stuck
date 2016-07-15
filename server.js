@@ -124,12 +124,33 @@ app.get("/p/:participant_digest", (req, res) => {
   });
 });
 
-app.get("/rank/:participant_id", (req, res) => {
-  res.render("poll_taking");
+app.get("/rank/:poll_id", (req, res) => {
+  let poll_id = req.params.poll_id;
+  knex('polls').select('title', 'description').where({id: poll_id})
+  .then(function(polls) {
+     knex('choices').select('id', 'title', 'description').where({poll_id: poll_id})
+     .then(function(choices) {
+        res.render("poll_taking", {poll: polls[0],
+                                  choices: choices});
+     })
+  })
 });
 
-app.post("/rank/:participant_id", (req, res) => {
-  res.redirect("/rank/:participant_id/success");
+/*
+  { rankings: [ id1 id2 id3 id4 id5 ]}
+*/
+
+app.post("/rank/:poll_id", (req, res) => {
+
+  console.log(req.body)
+  knex('rankings').insert({participant_id: 'participant_id',
+                           choice_id: 'choice_id',
+                           ranking: 'req.body.ranking'})
+  .where({choice_id: 'choice_id'}).then(function(rankings) {
+    res.redirect("/rank/:poll_id/success", {participant_id: 'participant_id',
+                                            choice_id: 'choice_id',
+                                            ranking: 'ranking'});
+  });
 });
 
 app.get("/rank/:participant_id/success", (req, res) => {
