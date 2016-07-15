@@ -90,11 +90,18 @@ app.put("/polls/:id", (req, res) => {
   knex('polls').where({id: poll_id}).update({title: req.body.poll.title,
                                              description: req.body.poll.description}).then();
   knex('choices').where({poll_id: poll_id}).delete().then();
+  knex('participants').where({poll_id: poll_id}).delete().then();
+
 
   for(choice of req.body.poll.choices) {
     knex('choices').insert({title: choice.title,
                              description: choice.description,
                              poll_id: poll_id}).then();
+  }
+
+  for(participant of req.body.poll.participants) {
+    knex('participants').insert({email: participant.email,
+                                poll_id: poll_id}).then();
   }
   res.json({status: "OK"})
 });
