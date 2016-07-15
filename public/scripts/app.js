@@ -14,21 +14,21 @@ $(function() {
   })
 
 })
-function createParticipant(participant) {
+function createParticipant() {
   return $(`<div class="row">
   <div class="col-md-4 col-md-offset-3">
     <div class="form-group">
-      <input type="email" class="form-control" name="participants[<%= participant.id %>][title]" placeholder="enter email" value="<%= participant.email %>">
+      <input type="email" class="form-control" name="participants[][email]" placeholder="enter email" value="">
     </div>
   </div>
 </div>`);
 }
 
-function createChoice(choice) {
+function createChoice() {
   return $(`<div class="row">
     <div class="col-md-4 col-md-offset-3">
       <div class="form-group">
-        <input type="text" class="form-control" name="choices[<%= choice.id %>][title]" placeholder="Choice 1" value="<%= choice.title %>">
+        <input type="text" class="form-control" name="choices[][title]" placeholder="Choice" value="">
       </div>
     </div>
   </div>
@@ -36,63 +36,23 @@ function createChoice(choice) {
   <div class="row">
     <div class="col-md-4 col-md-offset-3">
     <div class="form-group">
-      <textarea class="form-control" rows="2" name="choices[<%= choice.id %>][description]" placeholder="Uh huh uh huh, makes sense."><%= choice.description %></textarea>
+      <textarea class="form-control" rows="2" name="choices[][description]" placeholder="Uh huh uh huh, makes sense."></textarea>
     </div>
   </div>
 </div>`);
 }
-  //   console.log("Keyup working!");
-  // });
 
-  // $( "#pollDescription" ).keyup(function(title) {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
+$(document).ready(function() {
 
-  //   console.log("Keyup working!");
-  // });
-
-  $( "#choices input[type=text]" ).keyup(function() {
-    var choice = $(this).val();
-    $.ajax({
-      type: "POST",
-      url: "/polls",
-      data: {title: choice}
-    });
-    console.log("Keyup working for choice 1!!");
+  $('.addChoice').click(function(event) {
+    createChoice().appendTo('.choices');
   });
 
-  // $( "#choice2" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 2!!");
-  // });
+ $('.addParticipant').click(function(event) {
+   createParticipant().appendTo('.participants');
+});
 
-  // $( "#choice3" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 3!!");
-  // });
+});
 
-  // $( "#choice4" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 4!!");
-  // });
-
-  // $( "#choice5" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 5!!");
-  // });
 
 
