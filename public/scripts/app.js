@@ -12,56 +12,45 @@ $(function() {
     });
   })
 })
-  //   console.log("Keyup working!");
-  // });
+function createParticipant() {
+  return $(`<div class="row">
+  <div class="col-md-4 col-md-offset-3">
+    <div class="form-group">
+      <input type="email" class="form-control" name="participants[][email]" placeholder="enter email" value="">
+    </div>
+  </div>
+</div>`);
+}
 
-  // $( "#pollDescription" ).keyup(function(title) {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
+function createChoice() {
+  return $(`<div class="row">
+    <div class="col-md-4 col-md-offset-3">
+      <div class="form-group">
+        <input type="text" class="form-control" name="choices[][title]" placeholder="Choice" value="">
+      </div>
+    </div>
+  </div>
 
-  //   console.log("Keyup working!");
-  // });
+  <div class="row">
+    <div class="col-md-4 col-md-offset-3">
+    <div class="form-group">
+      <textarea class="form-control" rows="2" name="choices[][description]" placeholder="Uh huh uh huh, makes sense."></textarea>
+    </div>
+  </div>
+</div>`);
+}
 
-  // $( "#choice1" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 1!!");
-  // });
+$(document).ready(function() {
 
-  // $( "#choice2" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 2!!");
-  // });
+  $('.addChoice').click(function(event) {
+    createChoice().appendTo('.choices');
+  });
 
-  // $( "#choice3" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 3!!");
-  // });
+ $('.addParticipant').click(function(event) {
+   createParticipant().appendTo('.participants');
+});
 
-  // $( "#choice4" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 4!!");
-  // });
+});
 
-  // $( "#choice5" ).keyup(function() {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "/polls",
-  //   });
-  //   console.log("Keyup working for choice 5!!");
-  // });
 
 
