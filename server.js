@@ -52,7 +52,7 @@ app.get('/a/:admin_digest', (req, res) => {
 
 app.post("/polls", (req, res) => {
   knex('polls').insert({}).returning('id').then(function(results) {
-    console.log("Hi creating poll result", results)
+    console.log("Hi creating poll id:", results)
     let id = results[0];
     res.redirect(`/polls/${id}/edit`);
   });
@@ -67,11 +67,32 @@ app.get("/polls/:id/edit", (req, res) => {
 
 });
 
+
+/*
+   let req_body = {poll: {title: "...",
+         description: "...",
+         choices: [ {title: "...",
+                     description: "..."},
+                    {title: "...",
+                     description: "..."}
+                     ]
+         }}
+
+*/
+
 app.put("/polls/:id", (req, res) => {
-  // save updates
-  console.log(req.params)
-  // knex('polls').where({id: req.params.id}).update({title: req.body.title});
-  // res.redirect("/polls/:id/edit");
+  let poll_id = req.params.id
+  // console.log(req.body[3]);
+  knex('polls').where({id: poll_id}).update({title: req.body.poll.title,
+                                             description: req.body.poll.description});
+  knex('choices').where({poll_id: poll_id}).delete();
+
+  for(choice of req.body.poll.choices) {
+    knex('choices').insert({title: choice.title,
+                             description: choice.description,
+                             poll_id: poll_id});
+  }
+  res.json({status: "OK"})
 });
 
 app.get("/polls/:id", (req, res) => {

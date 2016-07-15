@@ -3,16 +3,14 @@ $(function() {
   $("#enterEmail").submit(function(event){
   });
 
-  $( "#pollTitle" ).blur(function() { //on blur
-    console.log("Working!");
-    var title = $(this).val();
+  $( "#poll_edit input[type=text]" ).on("keyup", function() {
+    // var id = $(this).data-poll-id
     $.ajax({
-      type: "PUT",
-      url: "/polls/:id",
-      data: {title: title}
+      method: "PUT",
+      url: "./",
+      data: $("form").serialize()
     });
   })
-
 })
   //   console.log("Keyup working!");
   // });
