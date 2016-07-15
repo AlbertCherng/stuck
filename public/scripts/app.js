@@ -52,8 +52,6 @@ $(document).ready(function() {
  $('.addParticipant').click(function(event) {
    createParticipant().appendTo('.participants');
 });
-<<<<<<< HEAD
-=======
 
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();
@@ -66,8 +64,6 @@ $('#takePoll').submit(function(event) {
 
 });
 
-
->>>>>>> results-page
 });
 
 
