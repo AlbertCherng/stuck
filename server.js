@@ -107,11 +107,35 @@ app.put("/polls/:id", (req, res) => {
 });
 
 app.get("/polls/:id/results", (req, res) => {
-   knex('polls').where({id: req.params.id})
+
+
+  knex.raw(`SELECT *
+FROM polls
+JOIN participants ON participants.poll_id = polls.id
+JOIN choices ON choices.poll_id = polls.id
+JOIN rankings ON ((participants.id = rankings.participant_id) AND (choices.id = rankings.choice_id))
+WHERE polls.id = ?;`, [req.params.id]).then(function(results){
+  console.log(results);
+
+});
+/*
+
+participants.id AS participant, choices.id AS choice, rankings.ranking
+
+
+  knex('rankings').select('*').then(function(rankings) {
+    knex('polls').where({id: req.params.id})
     .select('id').then(function(results) {
-      res.render("poll_results", {id: req.params.id});
+
+      res.render("poll_results", {id: req.params.id,
+                                  participant_id: req.cookies.participant_id,
+                                  choice_id: req.body.ranking.choice_id,
+                                  ranking: req.body.ranking.index});
 
     });
+  });
+
+*/
 });
 
 app.get("/p/:participant_digest", (req, res) => {
@@ -124,7 +148,7 @@ app.get("/p/:participant_digest", (req, res) => {
         throw error;
       } else {
         let poll_id = results[0].id;
-        knex('participants').insert({}).returning("id").then(function(results) {
+        knex('participants').insert({poll_id: poll_id}).returning("id").then(function(results) {
           let participant_id = results[0];
           res.cookie("participant_id", participant_id);
           res.redirect(`/rank/${poll_id}`);
