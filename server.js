@@ -118,14 +118,16 @@ app.get("/p/:participant_digest", (req, res) => {
   // check if digest correct // find which poll it correspdonds to
   // create a participant // set a cookie
     knex('polls').where({participant_digest: req.params.participant_digest})
-    .select('participant_digest, id').then(function(results) {
+    .select('id').then(function(results) {
+
       if(results.length == 0) {
         throw error;
       } else {
+        let poll_id = results[0].id;
         knex('participants').insert({}).returning("id").then(function(results) {
           let participant_id = results[0];
-          req.cookies("participant_id", participant_id);
-          res.redirect(`/rank/${participant_id}`);
+          res.cookie("participant_id", participant_id);
+          res.redirect(`/rank/${poll_id}`);
         });
       }
   });
@@ -149,15 +151,28 @@ app.get("/rank/:poll_id", (req, res) => {
 
 app.post("/rank/:poll_id", (req, res) => {
 
-  console.log(req.body)
-  knex('rankings').insert({participant_id: 'participant_id',
-                           choice_id: 'choice_id',
-                           ranking: 'req.body.ranking'})
-  .where({choice_id: 'choice_id'}).then(function(rankings) {
-    res.redirect("/rank/:poll_id/success", {participant_id: 'participant_id',
-                                            choice_id: 'choice_id',
-                                            ranking: 'ranking'});
+  console.log(req.body.ranking)
+  var rankingsCreated = 0;
+
+  var onAllComplete = function () {
+    if (rankingsCreated === req.body.ranking.length){
+     res.redirect(`/rank/${req.params.poll_id}/success`);
+    }
+  }
+
+  req.body.ranking.forEach(function(choice_id, index){
+
+     knex('rankings').insert({participant_id: req.cookies.participant_id,
+                           choice_id: choice_id,
+                           ranking: index
+                         }).then(function(result) {
+                          rankingsCreated += 1;
+                          onAllComplete();
   });
+
+  });
+
+
 });
 
 app.get("/rank/:participant_id/success", (req, res) => {
