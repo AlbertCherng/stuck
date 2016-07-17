@@ -7,31 +7,34 @@
     <thead>
       <tr>
         <th>Choices</th>
-        <th>Participant ID</th>
         <th>Ranking</th>
-        <th>Borda Points</th>
+
       </tr>
     </thead>
     <tbody>
+
+
       <tr>
-        <td>Choice 1</td>
-        <td>1</td>
-        <td>2</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>Choice 2</td>
-        <td>1</td>
-        <td>2</td>
-        <td>2</td>
+        <!-- <td>Choice <%= item %></td> -->
+     <!--    <td><%= item[choice] %></td> -->
+
+
+<!--       <% for(item in results) { %> -->
+
 
       </tr>
-      <tr>
-        <td>Choice 3</td>
-        <td>1</td>
-        <td>2</td>
-        <td>2</td>
+
+<!-- <% } %> -->
+     <% for(item in answer) { %>
+     <% if (results[item].choice_id !== undefined) %>
+        <td><%= results[item].title %></td>
+        <td><%= answer[item] %></td>
+
       </tr>
+
+<% } %>
+
+
     </tbody>
   </table>
   <div class="row">
