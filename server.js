@@ -108,92 +108,7 @@ app.put("/polls/:id", (req, res) => {
 
 app.get("/polls/:id/results", (req, res) => {
 
-<<<<<<< HEAD
-knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking FROM polls
-   JOIN choices ON choices.poll_id = polls.id
-   JOIN rankings ON (rankings.choice_id = choices.id) WHERE polls.id = choices.poll_id`).then(function(results){
-     var count = 0;
-     var checkArr = [];
-     var finalObj = {};
-     for(item of results.rows){
-       var finalArr = [];
-       if(checkArr.indexOf(item.choice_id)){
-         checkArr.push(item.choice_id);
-         finalArr.push(item.ranking);
-         finalObj[item.choice_id] = finalArr;
-       } else {
-           finalObj[item.choice_id].push(item.ranking);
-       }
-
-       // if (checkArr.hasOwnProperty(item.choice_id)) {
-       //   checkArr[item.choice_id].push(item.ranking);
-       // };
-       finalObj[item.choice_id].reduce(function(a, b){
-         return a + b;
-       }, 0);
-
-     }
-     console.log(finalObj);
-     // console.log(results.rows[0]id, results.rows[0]choice_id, results.rows[0]ranking);
-   })
-
-//   knex.raw(`SELECT *
-// FROM polls
-// JOIN participants ON participants.poll_id = polls.id
-// JOIN choices ON choices.poll_id = polls.id
-// JOIN rankings ON ((participants.id = rankings.participant_id) AND (choices.id = rankings.choice_id))
-// WHERE polls.id = ?;`, [req.params.id]).then(function(results){
-//   console.log(results);
-
-
-// });
-
-
-// participants.id AS participant, choices.id AS choice, rankings.ranking
-
-  // knex('rankings').select('*').then(function(rankings) {
-    // knex('choices').where({poll_id: req.params.id})
-    // .select('*').then(function(choices) {
-    //   // console.log(req.params);
-    //   console.log(choices);
-    //   console.log(rankings);
-
-    //   if (choices.id == rankings.choice_id) {
-    //     for (ranking of rankings) {
-    //       console.log(ranking.ranking);
-    //     }
-
-
-    //     res.render("poll_results", {id: req.params.id,
-    //                               participant_id: req.cookies.participant_id,
-    //                               //choice_id: req.body.ranking.choice_id,
-    //                               //ranking: req.body.ranking.index
-    //                             });
-    //   }
-
-
-    // knex.select('*').from('polls').leftJoin('choices', 'polls.id', 'choices.poll_id')
-    // .leftJoin('rankings', 'choices.id', 'rankings.choice_id').orderBy('polls.id')
-    // .then(function(results) {
-
-    //     results.forEach(function(item, index) {
-    //       //console.log(item);
-    //       if (item.poll_id == req.params.id) {
-    //         console.log(item.ranking);
-    //       }
-    //     });
-
-      // if (id) {
-        //console.log(results);
-     // }
-    // });
-
-
-  });
-
-
-=======
-  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking
+  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, choices.title
             FROM polls
             JOIN choices ON choices.poll_id = polls.id
             JOIN rankings ON (rankings.choice_id = choices.id)
@@ -216,15 +131,17 @@ knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking FROM polls
               }
               for (choice in finalObj) {
                 var finalScoreArr = finalObj[choice]
-                console.log(finalScoreArr);
+                // console.log(finalScoreArr);
+
                 answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
               }
-              return answer;
+
+              console.log(answer);
               res.render("poll_results", {id: req.params.id,
-                                          answer: answer
+                                          answer: answer,
+                                          results: results.rows
                                          });
             })
->>>>>>> 3eec84057128541abf8a33d63b789db8912b88e3
 });
 
 app.get("/p/:participant_digest", (req, res) => {
