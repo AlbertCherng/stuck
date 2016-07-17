@@ -1,7 +1,47 @@
 body {
   background-color: #EEE;
-
   h1 {
-    color: #244751;
+    color: white;
+    font-size:6em;
+    font-family:helvetica neue;
+    font-weight: bold;
   }
+}
+
+.header-logo {
+  font-size:3em;
+  font-family:helvetica neue;
+  font-weight: bold;
+  margin-right: -50%;
+}
+
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.caption {
+  color: white;
+  font-family:helvetica neue;
+  font-size:3em;
+}
+
+.bgvideo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+}
+
+.form-control {
+  width:100%;
+}
+
+.bgText {
+  padding-top: 10%;
 }
