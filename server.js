@@ -108,35 +108,37 @@ app.put("/polls/:id", (req, res) => {
 
 app.get("/polls/:id/results", (req, res) => {
 
-
-//   knex.raw(`SELECT *
-// FROM polls
-// JOIN participants ON participants.poll_id = polls.id
-// JOIN choices ON choices.poll_id = polls.id
-// JOIN rankings ON ((participants.id = rankings.participant_id) AND (choices.id = rankings.choice_id))
-// WHERE polls.id = ?;`, [req.params.id]).then(function(results){
-//   console.log(results);
-
-
-// });
-
-
-// participants.id AS participant, choices.id AS choice, rankings.ranking
-
-  knex('rankings').select('*').then(function(rankings) {
-    knex('choices').where({poll_id: req.params.id})
-    .select('title').then(function(results) {
-
-      res.render("poll_results", {id: req.params.id,
-                                  participant_id: req.cookies.participant_id,
-                                  //choice_id: req.body.ranking.choice_id,
-                                  //ranking: req.body.ranking.index
-                                });
-
-    });
-  });
-
-
+  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking
+            FROM polls
+            JOIN choices ON choices.poll_id = polls.id
+            JOIN rankings ON (rankings.choice_id = choices.id)
+            WHERE polls.id = choices.poll_id`).then(function(results){
+              var checkArr = [];
+              var finalObj = {};
+              var answer = {}
+              for(item of results.rows){
+                var finalArr = [];
+                if(checkArr.indexOf(item.choice_id) === -1){
+                  checkArr.push(item.choice_id);
+                  finalArr.push(item.ranking);
+                  finalObj[item.choice_id] = finalArr;
+                } else {
+                    finalObj[item.choice_id].push(item.ranking);
+                }
+                finalObj[item.choice_id].reduce(function(a, b){
+                  return a + b;
+                },0);
+              }
+              for (choice in finalObj) {
+                var finalScoreArr = finalObj[choice]
+                console.log(finalScoreArr);
+                answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
+              }
+              return answer;
+              res.render("poll_results", {id: req.params.id,
+                                          answer: answer
+                                         });
+            })
 });
 
 app.get("/p/:participant_digest", (req, res) => {

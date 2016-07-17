@@ -6,7 +6,12 @@ exports.seed = function(knex, Promise) {
     knex('choices').insert({id: 2, title: 'Taco', description: 'Because taco', poll_id: 1}),
     knex('participants').insert({id: 1, name: 'KV', email: 'kv@gmail.com', poll_id: 1}),
     knex('participants').insert({id: 2, name: 'Raf', email: 'raf@gmail.com', poll_id: 1}),
-    knex('rankings').insert({ranking: 2, participant_id: 1, choice_id:1}),
-    knex('rankings').insert({ranking: 3, participant_id: 2, choice_id:2}),
+    knex('participants').insert({id: 3, name: 'Jeff', email: 'jeff@gmail.com', poll_id: 1}),
+    knex('rankings').insert({ranking: 1, participant_id: 1, choice_id:1}),
+    knex('rankings').insert({ranking: 2, participant_id: 1, choice_id:2}),
+    knex('rankings').insert({ranking: 2, participant_id: 2, choice_id:1}),
+    knex('rankings').insert({ranking: 1, participant_id: 2, choice_id:2}),
+    knex('rankings').insert({ranking: 2, participant_id: 3, choice_id:1}),
+    knex('rankings').insert({ranking: 1, participant_id: 3, choice_id:2}),
   ]);
 };
