@@ -108,6 +108,7 @@ app.put("/polls/:id", (req, res) => {
 
 app.get("/polls/:id/results", (req, res) => {
 
+<<<<<<< HEAD
 knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking FROM polls
    JOIN choices ON choices.poll_id = polls.id
    JOIN rankings ON (rankings.choice_id = choices.id) WHERE polls.id = choices.poll_id`).then(function(results){
@@ -191,6 +192,39 @@ knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking FROM polls
   });
 
 
+=======
+  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking
+            FROM polls
+            JOIN choices ON choices.poll_id = polls.id
+            JOIN rankings ON (rankings.choice_id = choices.id)
+            WHERE polls.id = choices.poll_id`).then(function(results){
+              var checkArr = [];
+              var finalObj = {};
+              var answer = {}
+              for(item of results.rows){
+                var finalArr = [];
+                if(checkArr.indexOf(item.choice_id) === -1){
+                  checkArr.push(item.choice_id);
+                  finalArr.push(item.ranking);
+                  finalObj[item.choice_id] = finalArr;
+                } else {
+                    finalObj[item.choice_id].push(item.ranking);
+                }
+                finalObj[item.choice_id].reduce(function(a, b){
+                  return a + b;
+                },0);
+              }
+              for (choice in finalObj) {
+                var finalScoreArr = finalObj[choice]
+                console.log(finalScoreArr);
+                answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
+              }
+              return answer;
+              res.render("poll_results", {id: req.params.id,
+                                          answer: answer
+                                         });
+            })
+>>>>>>> 3eec84057128541abf8a33d63b789db8912b88e3
 });
 
 app.get("/p/:participant_digest", (req, res) => {
