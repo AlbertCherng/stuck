@@ -140,11 +140,15 @@ app.get("/polls/:id/results", (req, res) => {
                 // console.log(finalScoreArr);
 
                 answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
+                console.log(finalScoreArr);
               }
+
               console.log(titles);
               console.log(answer);
+
+              answers = Object.keys(answer).sort(function(a,b){return answer[a]-answer[b]})
               res.render("poll_results", {id: req.params.id,
-                                          answer: answer,
+                                          answer: answers,
                                           results: results.rows,
                                           titles: titles
                                          });
