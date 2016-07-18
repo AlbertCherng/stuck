@@ -108,19 +108,25 @@ app.put("/polls/:id", (req, res) => {
 
 app.get("/polls/:id/results", (req, res) => {
 
-  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, choices.title
+  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, rankings.participant_id, choices.title
             FROM polls
             JOIN choices ON choices.poll_id = polls.id
             JOIN rankings ON (rankings.choice_id = choices.id)
             WHERE polls.id = choices.poll_id`).then(function(results){
               var checkArr = [];
               var finalObj = {};
-              var answer = {}
+              var answer = {};
+              var titles = [];
+
+              console.log(results.rows);
               for(item of results.rows){
                 var finalArr = [];
                 if(checkArr.indexOf(item.choice_id) === -1){
+                  titles.push(item.title)
+
                   checkArr.push(item.choice_id);
                   finalArr.push(item.ranking);
+
                   finalObj[item.choice_id] = finalArr;
                 } else {
                     finalObj[item.choice_id].push(item.ranking);
@@ -135,11 +141,12 @@ app.get("/polls/:id/results", (req, res) => {
 
                 answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
               }
-
+              console.log(titles);
               console.log(answer);
               res.render("poll_results", {id: req.params.id,
                                           answer: answer,
-                                          results: results.rows
+                                          results: results.rows,
+                                          titles: titles
                                          });
             })
 });
