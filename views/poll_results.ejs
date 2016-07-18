@@ -3,40 +3,45 @@
 
 
 <div class="jumbotron">
-  <table class="table table-condensed">
+<div class="col-xs-6">
+<h2 class="sub-header">Choices</h2>
+  <div class="table-responsive">
+            <table class="table table-striped">
     <thead>
       <tr>
-        <th>Choices</th>
-        <th>Ranking</th>
-
       </tr>
     </thead>
     <tbody>
-
-
+    <% for (title in titles) { %>
       <tr>
-        <!-- <td>Choice <%= item %></td> -->
-     <!--    <td><%= item[choice] %></td> -->
-
-
-<!--       <% for(item in results) { %> -->
-
-
+        <td><%= titles[title]%></td>
       </tr>
-
-<!-- <% } %> -->
-     <% for(item in answer) { %>
-     <% if (results[item].choice_id !== undefined) %>
-        <td><%= results[item].title %></td>
-        <td><%= answer[item] %></td>
-
-      </tr>
-
-<% } %>
-
-
+    <% } %>
     </tbody>
   </table>
+</div>
+</div>
+
+<div class="col-xs-6">
+          <h2 class="sub-header">Rankings</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+    <% for(item in answer) { %>
+      <tr>
+        <td><%= answer[item] %></td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Results</button>
