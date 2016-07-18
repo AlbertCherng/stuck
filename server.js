@@ -108,7 +108,51 @@ app.put("/polls/:id", (req, res) => {
 
 app.get("/polls/:id/results", (req, res) => {
 
+  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, rankings.participant_id, choices.title
+            FROM polls
+            JOIN choices ON choices.poll_id = polls.id
+            JOIN rankings ON (rankings.choice_id = choices.id)
+            WHERE polls.id = choices.poll_id`).then(function(results){
+              var checkArr = [];
+              var finalObj = {};
+              var answer = {};
+              var titles = [];
 
+              console.log(results.rows);
+              for(item of results.rows){
+                var finalArr = [];
+                if(checkArr.indexOf(item.choice_id) === -1){
+                  titles.push(item.title)
+
+                  checkArr.push(item.choice_id);
+                  finalArr.push(item.ranking);
+
+                  finalObj[item.choice_id] = finalArr;
+                } else {
+                    finalObj[item.choice_id].push(item.ranking);
+                }
+                finalObj[item.choice_id].reduce(function(a, b){
+                  return a + b;
+                },0);
+              }
+              for (choice in finalObj) {
+                var finalScoreArr = finalObj[choice]
+                // console.log(finalScoreArr);
+
+                answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
+                console.log(finalScoreArr);
+              }
+
+              console.log(titles);
+              console.log(answer);
+
+              answers = Object.keys(answer).sort(function(a,b){return answer[a]-answer[b]})
+              res.render("poll_results", {id: req.params.id,
+                                          answer: answers,
+                                          results: results.rows,
+                                          titles: titles
+                                         });
+            })
 });
 
 app.get("/p/:participant_digest", (req, res) => {
@@ -179,39 +223,3 @@ app.get("/rank/:participant_id/success", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
-
-
-
-  // knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, choices.title
-  //           FROM polls
-  //           JOIN choices ON choices.poll_id = polls.id
-  //           JOIN rankings ON (rankings.choice_id = choices.id)
-  //           WHERE polls.id = choices.poll_id`).then(function(results){
-  //             console.log(results.rows);
-  // //             console.log(results.rows);
-  // //             var checkArr = [];
-  // //             var finalObj = {};
-  // //             var answer = {}
-  // //             for(item of results.rows){
-  // //               var finalArr = [];
-  // //               if(checkArr.indexOf(item.choice_id) === -1){
-  // //                 checkArr.push(item.choice_id);
-  // //                 finalArr.push(item.ranking);
-  // //                 finalObj[item.choice_id] = finalArr;
-  // //               } else {
-  // //                   finalObj[item.choice_id].push(item.ranking);
-  // //               }
-  // //               finalObj[item.choice_id].reduce(function(a, b){
-  // //                 return a + b;
-  // //               },0);
-  // //             }
-  // //             for (choice in finalObj) {
-  // //               var finalScoreArr = finalObj[choice]
-  // //               console.log(finalScoreArr);
-  // //               answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
-  // //             }
-  //             // console.log(answer);
-  //             res.render("poll_results", {id: req.params.id});
-  //           })

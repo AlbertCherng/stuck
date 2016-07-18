@@ -1,6 +1,5 @@
 $(function() {
 
-
   $("#enterEmail").submit(function(event){
   });
 
