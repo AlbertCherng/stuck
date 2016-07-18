@@ -107,50 +107,17 @@ app.put("/polls/:id", (req, res) => {
 });
 
 app.get("/polls/:id/results", (req, res) => {
+  let poll_id = req.params.id;
 
-  knex.raw(`SELECT polls.id, rankings.choice_id, rankings.ranking, rankings.participant_id, choices.title
+  knex.raw(`SELECT polls.id as PollID, choices.id as ChoiceID, SUM(rankings.ranking) as Count, choices.title as ChoiceTitle
             FROM polls
             JOIN choices ON choices.poll_id = polls.id
             JOIN rankings ON (rankings.choice_id = choices.id)
-            WHERE polls.id = choices.poll_id`).then(function(results){
-              var checkArr = [];
-              var finalObj = {};
-              var answer = {};
-              var titles = [];
-
+            WHERE polls.id = ${poll_id} GROUP BY polls.id, choices.id, choices.title `).then(function(results){
               console.log(results.rows);
-              for(item of results.rows){
-                var finalArr = [];
-                if(checkArr.indexOf(item.choice_id) === -1){
-                  titles.push(item.title)
 
-                  checkArr.push(item.choice_id);
-                  finalArr.push(item.ranking);
-
-                  finalObj[item.choice_id] = finalArr;
-                } else {
-                    finalObj[item.choice_id].push(item.ranking);
-                }
-                finalObj[item.choice_id].reduce(function(a, b){
-                  return a + b;
-                },0);
-              }
-              for (choice in finalObj) {
-                var finalScoreArr = finalObj[choice]
-                // console.log(finalScoreArr);
-
-                answer[choice] = finalScoreArr.reduce((a, b) => a + b, 0);
-                console.log(finalScoreArr);
-              }
-
-              console.log(titles);
-              console.log(answer);
-
-              answers = Object.keys(answer).sort(function(a,b){return answer[a]-answer[b]})
               res.render("poll_results", {id: req.params.id,
-                                          answer: answers,
-                                          results: results.rows,
-                                          titles: titles
+                                          results: results.rows
                                          });
             })
 });
