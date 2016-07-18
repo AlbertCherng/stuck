@@ -1,6 +1,7 @@
 <% include ./partials/_header %>
 
 <div class="jumbotron">
+<<<<<<< HEAD
    <div class="col-xs-6">
      <h2 class="sub-header">Choices</h2>
      <div class="table-responsive">
@@ -36,6 +37,43 @@
    <% } %>
    </tbody>
  </table>
+=======
+    <div class="col-xs-6">
+      <h2 class="sub-header">Choices</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (title in titles) { %>
+          <tr>
+            <td><%= titles[title]%></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+<div class="col-xs-6">
+  <h2 class="sub-header">Combined Rankings</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+    <% for(item in answer) { %>
+      <tr>
+        <td><%= answer[item] %></td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+>>>>>>> c9346cc056a8d24f30e3afb4bc46a263effdfed9
 </div>
 </div>
 
