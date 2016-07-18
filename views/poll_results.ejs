@@ -1,27 +1,10 @@
 <% include ./partials/_header %>
 
 <div class="jumbotron">
-    <div class="col-xs-6">
-      <h2 class="sub-header">Choices</h2>
-      <div class="table-responsive">
-        <table class="table table-striped">
-        <thead>
-          <tr>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (title in titles) { %>
-          <tr>
-            <td><%= titles[title]%></td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-      </div>
-    </div>
+
 
 <div class="col-xs-6">
-  <h2 class="sub-header">Combined Rankings</h2>
+  <h2 class="sub-header"> Rankings</h2>
     <div class="table-responsive">
       <table class="table table-striped">
     <thead>
@@ -29,11 +12,28 @@
       </tr>
     </thead>
     <tbody>
-    <% for(item in answer) { %>
+    <% let newArr = [] %>
+    <% for(item in results) { %>
       <tr>
-        <td><%= answer[item] %></td>
+        <td><%= results[item].choicetitle %></td>
+        <td><%= results[item].count %></td>
+
       </tr>
     <% } %>
+    <!-- <% newResults = results.sort(function(a,b) { %> -->
+ <!--    <% function compare(a, b) { %>
+    <% if (a.count < b.count ) %>
+      <% return -1 %>
+    <% if (a.count > b.count ) %>
+    <% return -1 %>
+    <% return 0 %>
+  <% } %>
+
+   <% newResults = results.sort(compare) %>
+   <%= newResults %>
+ -->      <!--     <% return a.count- b.count %>
+       <% }) %>
+       <%= newResults %> -->
     </tbody>
   </table>
 </div>
