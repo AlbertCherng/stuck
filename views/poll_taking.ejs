@@ -1,5 +1,4 @@
 <% include ./partials/_header %>
-<<<<<<< HEAD
   <div class="col-md-4 col-md-offset-4">
     <div class="table">
       <h2> Rank Your Order </h2>
@@ -13,7 +12,7 @@
           <h3> Choice Title: </h3> <%= choice.title %>
           <br>
           <h3> Choice Description: </h3> <%= choice.description %>
-   <!--        <input type="text" name="SET BY JQUERY" value="<%= choice.id %>" class="ranking"> -->
+          <input type="text" name="SET BY JQUERY" value="<%= choice.id %>" class="ranking">
           <br>
           </li>
           <% } %>
@@ -21,28 +20,6 @@
         <br><br>
         <input type="submit" class="btn btn-success"></input>
       </form>
-=======
-<div class="jumbotron">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <div class="table">
-        <h2> Rank your order </h2>
-        <h3><%= poll.title %></h3>
-        <h4><%= poll.description %></h4>
-        <form id="takePoll" action="" method="POST" class="form-inline">
-          <ul id="sortable">
-            <% for (choice of choices) { %>
-            <li class="choice">
-              <%= choice.title %>
-              <%= choice.description %>
-              <input type="hidden" name="SET BY JQUERY" value="<%= choice.id %>" class="ranking">
-            </li>
-          <% } %>
-          </ul>
-          <input type="submit" class="btn btn-success"></input>
-        </form>
-      </div>
->>>>>>> 8cd05d2d8d1207ee2e0b951996790f51a3850724
     </div>
   </div>
 <% include ./partials/_footer %>
