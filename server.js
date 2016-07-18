@@ -113,7 +113,7 @@ app.get("/polls/:id/results", (req, res) => {
             FROM polls
             JOIN choices ON choices.poll_id = polls.id
             JOIN rankings ON (rankings.choice_id = choices.id)
-            WHERE polls.id = ${poll_id} GROUP BY polls.id, choices.id, choices.title `).then(function(results){
+            WHERE polls.id = ${poll_id} GROUP BY polls.id, choices.id, choices.title ORDER BY Count`).then(function(results){
               console.log(results.rows);
 
               res.render("poll_results", {id: req.params.id,
@@ -147,6 +147,7 @@ app.get("/rank/:poll_id", (req, res) => {
   .then(function(polls) {
      knex('choices').select('id', 'title', 'description').where({poll_id: poll_id})
      .then(function(choices) {
+      console.log(choices);
         res.render("poll_taking", {poll: polls[0],
                                   choices: choices});
      })

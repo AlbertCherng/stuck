@@ -1,39 +1,18 @@
 <% include ./partials/_header %>
 
-<div class="jumbotron">
 
 
-<div class="col-xs-6">
-  <h2 class="sub-header"> Rankings</h2>
+<div class="col-xs-6 col-md-offset-3">
+  <h2 class="sub-header"> Rankings </h2>
     <div class="table-responsive">
       <table class="table table-striped">
-    <thead>
-      <tr>
-      </tr>
-    </thead>
     <tbody>
-    <% let newArr = [] %>
     <% for(item in results) { %>
       <tr>
         <td><%= results[item].choicetitle %></td>
-        <td><%= results[item].count %></td>
-
       </tr>
     <% } %>
-    <!-- <% newResults = results.sort(function(a,b) { %> -->
- <!--    <% function compare(a, b) { %>
-    <% if (a.count < b.count ) %>
-      <% return -1 %>
-    <% if (a.count > b.count ) %>
-    <% return -1 %>
-    <% return 0 %>
-  <% } %>
 
-   <% newResults = results.sort(compare) %>
-   <%= newResults %>
- -->      <!--     <% return a.count- b.count %>
-       <% }) %>
-       <%= newResults %> -->
     </tbody>
   </table>
 </div>
@@ -42,13 +21,13 @@
 
  <div class="row">
    <div class="col-md-6 col-md-offset-3">
-     <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Results</button>
+   <h2> Refresh for new result or use this link </h2>
      <p>
        <form id="adminLink">
          <input type="text" class="form-control" name="adminlink" value="http://localhost:8080/polls/<%= id%>/results">
        </form>
-     </p>
-     <button type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Share </button>
+     </p> <br>
+     <h2> Share this link with your friends! </h2>
      <p>
        <form id="adminLink">
          <input type="text" class="form-control" name="adminlink" value="http://localhost:8080/rank/<%= id%>">
@@ -56,6 +35,5 @@
      </p>
    </div>
  </div>
-</div>
 
 <% include ./partials/_footer %>
