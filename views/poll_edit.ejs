@@ -1,6 +1,7 @@
 <% include ./partials/_header %>
-<div class="col-md-offset-4 instructions">
-  Create your custom poll below!
+<br>
+<div class="col-md-offset-4">
+  <h2> CREATE YOUR POLL </h2>
 </div>
 
 <form class="poll">
@@ -8,7 +9,7 @@
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
-          <label for="pollTitle">Title</label>
+          <h2>Give it a title.</h2>
           <input type="text" name= "poll[title]" class="form-control" name="title" id="pollTitle" placeholder="What are you trying to describe?">
         </div>
       </div>
@@ -16,7 +17,7 @@
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
-          <label for="pollDescription">Describe it.</label>
+        <h2>Describe it.</h2>
           <textarea class="form-control" name="poll[description]" rows="3" id="pollDescription" placeholder="Uh huh uh huh, makes sense."></textarea>
         </div>
       </div>
@@ -25,7 +26,7 @@
 
 
   <div class="choices">
-    <h2 class="col-md-offset-4">Enter Choices:</h2>
+    <h2 class="col-md-offset-4">Enter your choices.</h2>
 
     <% choices.forEach(function(choice, index) { %>
       <div class="choice">
@@ -54,16 +55,16 @@
       </div>
     </div>
 
-  <div class="participants">
-    <h2 class="col-md-offset-4">Enter Participants:</h2>
+  <div class="participants col-md-offset-4">
+    <h2>Enter who you want to invite.</h2>
 
     <% participants.forEach(function(participant, index) { %>
 
       <div class="participant">
         <div class="row">
-          <div class="col-md-4 col-md-offset-4">
+          <div class="col-md-4">
             <div class="form-group">
-              <input type="email" class="form-control" name="poll[participants][<%= index %>][email]" placeholder="enter email" value="<%= participant.email %>">
+              <input type="email" class="form-control" name="poll[participants][<%= index %>][email]" placeholder="Enter email" value="<%= participant.email %>">
             </div>
           </div>
         </div>
@@ -74,16 +75,21 @@
 
   <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <div class="addParticipant"><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></button></div>
+        <div class="addParticipant">
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-download" aria-hidden="true">
+            </span>
+          </button>
+        </div>
       </div>
-    </div>
   </div>
 
 </form>
+<br>
 
 <form id="submitForm" action="./results" method="GET" class="form-inline">
-<button type="submit" class="btn btn-info col-md-offset-4" value="Submit">Submit New Poll</button>
-<!-- <input type="submit" value="Submit"> -->
+  <button type="submit" class="btn btn-info col-md-offset-4" value="Submit">  Submit New Poll
+  </button>
 </form>
-
+<br>
 <% include ./partials/_footer %>
